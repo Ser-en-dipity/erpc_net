@@ -1,0 +1,6 @@
+D:\erpc\erpc_net\src\main\obj\Debug\net8.0\erpc_core.GeneratedMSBuildEditorConfig.editorconfig
+D:\erpc\erpc_net\src\main\obj\Debug\net8.0\erpc_core.AssemblyInfoInputs.cache
+D:\erpc\erpc_net\src\main\obj\Debug\net8.0\erpc_core.AssemblyInfo.cs
+D:\erpc\erpc_net\src\main\obj\Debug\net8.0\erpc_core.csproj.CoreCompileInputs.cache
+D:\erpc\erpc_net\src\main\obj\Debug\net8.0\erpc_core.sourcelink.json
+D:\erpc\erpc_net\src\main\obj\Debug\net8.0\erpc_core.csproj.AssemblyReference.cache
