@@ -68,7 +68,7 @@ public abstract class Service
 
         try
         {
-            method.accept(sequence, codec);
+            method(sequence, codec);
         }
         catch (Exception e) when (e is CodecError || e is RequestError)
         {

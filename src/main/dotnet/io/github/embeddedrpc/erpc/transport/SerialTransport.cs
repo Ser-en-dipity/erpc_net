@@ -52,20 +52,16 @@ public sealed class SerialTransport : FramedTransport
     {
         Debug.Assert(_serialPort.IsOpen);
 
-        int bytesSent = _serialPort.writeBytes(message, message.length);
+        _serialPort.Write(message, 0, message.Length);
 
-        if (bytesSent != message.length)
-        {
-            throw new TransportError("Should send: " + message.length + ", but sent: " + bytesSent);
-        }
     }
 
     public override byte[] baseReceive(int count)
     {
-        Debug.Assert(serial.isOpen());
+        Debug.Assert(_serialPort.IsOpen);
 
         byte[] received = new byte[count];
-        int bytesRead = serial.readBytes(received, count);
+        int bytesRead = _serialPort.Read(received, 0, count);
 
         if (bytesRead != count)
         {
@@ -77,9 +73,9 @@ public sealed class SerialTransport : FramedTransport
 
     public override void close()
     {
-        if (serial.isOpen())
+        if (_serialPort.IsOpen)
         {
-            serial.closePort();
+            _serialPort.Close();
         }
     }
 

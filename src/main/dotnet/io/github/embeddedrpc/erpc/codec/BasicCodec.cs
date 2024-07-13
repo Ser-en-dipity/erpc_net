@@ -8,6 +8,7 @@ using io.github.embeddedrpc.erpc.auxiliary;
 
 using System.IO;
 using System.Numerics;
+using System.Text;
 
 namespace io.github.embeddedrpc.erpc.codec;
 /**
@@ -18,7 +19,7 @@ public sealed class BasicCodec : Codec
     private const int BASIC_CODEC_VERSION = 1;
     private const int DEFAULT_BUFFER_SIZE = 256;
 
-    private MemoryStream buffer;
+    private ByteBuffer buffer;
 
     /**
      * Basic codec constructor. Create empty buffer.
@@ -31,158 +32,155 @@ public sealed class BasicCodec : Codec
     /**
      * Basic codec constructor. Create buffer from byte array.
      *
+     * all the byte store in big endian order.
+     *
      * @param byteArray byte array
      */
     public BasicCodec(byte[] byteArray)
     {
-        this.buffer = ByteBuffer.wrap(byteArray).order(ByteOrder.LITTLE_ENDIAN);
+        this.buffer = new ByteBuffer(byteArray);
     }
 
     private void prepareForWrite(int bytesToWrite)
     {
-        if (this.buffer.remaining() < bytesToWrite)
+        if (this.buffer.Remaining() < bytesToWrite)
         {
-            ByteBuffer newBuffer = ByteBuffer.allocate(
-                    (this.buffer.capacity() + bytesToWrite) * 2
+            ByteBuffer newBuffer = ByteBuffer.Allocate(
+                    (this.buffer.Capacity + bytesToWrite) * 2
             );
-            newBuffer.order(ByteOrder.LITTLE_ENDIAN);
-            this.buffer.flip();
 
-            newBuffer.put(this.buffer);
+            newBuffer.Write(this.buffer);
             this.buffer = newBuffer;
         }
     }
 
-    public override void reset()
+    public void reset()
     {
-        this.buffer = ByteBuffer.allocate(DEFAULT_BUFFER_SIZE)
-                .order(ByteOrder.LITTLE_ENDIAN);
+        this.buffer = ByteBuffer.Allocate(DEFAULT_BUFFER_SIZE);
     }
 
-    public override byte[] array()
+    public byte[] array()
     {
-        int position = buffer.position();
+        int position = this.buffer.Capacity;
         byte[] data = new byte[position];
-        buffer.position(0);
-        buffer.get(data);
-        buffer.position(position);
+        data = this.buffer.ToArray();
         return data;
     }
 
-    public override void setArray(byte[] array)
+    public void setArray(byte[] array)
     {
-        this.buffer = ByteBuffer.wrap(array).order(ByteOrder.LITTLE_ENDIAN);
+        this.buffer = new ByteBuffer(array);
     }
 
-    public override void startWriteMessage(MessageInfo msgInfo)
+    public void startWriteMessage(MessageInfo msgInfo)
     {
         long header = (BASIC_CODEC_VERSION << 24)
-                | ((msgInfo.service() & 0xff) << 16)
-                | ((msgInfo.request() & 0xff) << 8)
-                | (msgInfo.type().getValue() & 0xff);
+                | ((msgInfo.service & 0xff) << 16)
+                | ((msgInfo.request & 0xff) << 8)
+                | ((int)msgInfo.type & 0xff);
 
         this.writeUInt32(header);
-        this.writeUInt32(msgInfo.sequence());
+        this.writeUInt32(msgInfo.sequence);
     }
 
-    public override void writeBool(bool value)
+    public void writeBool(bool value)
     {
         prepareForWrite(1);
-        this.buffer.put(value ? (byte)1 : (byte)0);
+        this.buffer.WriteBoolean(value);
     }
 
-    public override void writeInt8(byte value)
+    public void writeInt8(byte value)
     {
         prepareForWrite(1);
-        this.buffer.put(value);
+        this.buffer.WriteByte(value);
     }
 
-    public override void writeInt16(short value)
+    public void writeInt16(short value)
     {
         prepareForWrite(2);
-        this.buffer.putShort(value);
+        this.buffer.WriteShort(value);
     }
 
-    public override void writeInt32(int value)
+    public void writeInt32(int value)
     {
         prepareForWrite(4);
-        this.buffer.putInt(value);
+        this.buffer.WriteInt(value);
     }
 
-    public override void writeInt64(long value)
+    public void writeInt64(long value)
     {
         prepareForWrite(8);
-        this.buffer.putLong(value);
+        this.buffer.WriteLong(value);
     }
 
-    public override void writeUInt8(short value)
+    public void writeUInt8(short value)
     {
         Utils.checkUInt8(value);
         prepareForWrite(1);
-        this.buffer.put(Utils.uInt8toByte(value));
+        this.buffer.WriteByte(Utils.uInt8toByte(value));
     }
 
-    public override void writeUInt16(int value)
+    public void writeUInt16(int value)
     {
         Utils.checkUInt16(value);
         prepareForWrite(2);
-        this.buffer.putShort(Utils.uInt16toShort(value));
+        this.buffer.WriteShort(Utils.uInt16toShort(value));
     }
 
-    public override void writeUInt32(long value)
+    public void writeUInt32(long value)
     {
         Utils.checkUInt32(value);
         prepareForWrite(4);
-        this.buffer.putInt(Utils.uInt32toInt(value));
+        this.buffer.WriteInt(Utils.uInt32toInt(value));
     }
 
-    public override void writeUInt64(long value)
+    public void writeUInt64(long value)
     {
-        throw new UnsupportedOperationException(
-                "Java implementation of the eRPC does not support 'uint64'"
+        throw new NotImplementedException(
+                "dotnet implementation of the eRPC does not support 'uint64'"
         );
     }
 
-    public override void writeFloat(float value)
+    public void writeFloat(float value)
     {
         prepareForWrite(4);
-        this.buffer.putFloat(value);
+        this.buffer.WriteFloat(value);
     }
 
-    public override void writeDouble(double value)
+    public void writeDouble(double value)
     {
         prepareForWrite(8);
-        this.buffer.putDouble(value);
+        this.buffer.WriteDouble(value);
     }
 
-    public override void writeString(String value)
+    public void writeString(String value)
     {
-        this.writeBinary(value.getBytes());
+        this.writeBinary(Encoding.ASCII.GetBytes(value));
     }
 
-    public override void writeBinary(byte[] value)
+    public void writeBinary(byte[] value)
     {
-        this.writeInt32(value.length);
-        prepareForWrite(value.length);
-        this.buffer.put(value);
+        this.writeInt32(value.Length);
+        prepareForWrite(value.Length);
+        this.buffer.WriteBytes(value);
     }
 
-    public override void startWriteList(int length)
+    public void startWriteList(int length)
     {
         this.writeUInt32(length);
     }
 
-    public override void startWriteUnion(int discriminator)
+    public void startWriteUnion(int discriminator)
     {
         this.writeUInt32(discriminator);
     }
 
-    public override void writeNullFlag(int value)
+    public void writeNullFlag(int value)
     {
         this.writeUInt32(value != 0 ? 1 : 0);
     }
 
-    public override MessageInfo startReadMessage()
+    public MessageInfo startReadMessage()
     {
         int header = (int)this.readUInt32();
         int sequence = (int)this.readUInt32();
@@ -195,98 +193,99 @@ public sealed class BasicCodec : Codec
 
         int service = (header >> 16) & 0xff;
         int request = (header >> 8) & 0xff;
-        MessageType msgType = MessageType.getMessageType(header & 0xff);
+        int type = header & 0xff;
+        MessageType msgType = (MessageType)type;
 
         return new MessageInfo(msgType, service, request, sequence);
     }
 
-    public override bool readBool()
+    public bool readBool()
     {
-        return this.buffer.get() != 0;
+        return this.buffer.ReadByte() != 0;
     }
 
-    public override byte readInt8()
+    public byte readInt8()
     {
-        return this.buffer.get();
+        return this.buffer.ReadByte();
     }
 
-    public override short readInt16()
+    public short readInt16()
     {
-        return this.buffer.getShort();
+        return this.buffer.ReadShort();
     }
 
-    public override int readInt32()
+    public int readInt32()
     {
-        return this.buffer.getInt();
+        return this.buffer.ReadInt();
     }
 
-    public override long readInt64()
+    public long readInt64()
     {
-        return this.buffer.getLong();
+        return this.buffer.ReadLong();
     }
 
-    public override short readUInt8()
+    public short readUInt8()
     {
-        return Utils.byteToUInt8(this.buffer.get());
+        return Utils.byteToUInt8(this.buffer.ReadByte());
     }
 
-    public override int readUInt16()
+    public int readUInt16()
     {
-        return Utils.shortToUInt16(this.buffer.getShort());
+        return Utils.shortToUInt16(this.buffer.ReadShort());
     }
 
-    public override long readUInt32()
+    public long readUInt32()
     {
-        return Utils.intToUInt32(this.buffer.getInt());
+        return Utils.intToUInt32(this.buffer.ReadInt());
     }
 
-    public override long readUInt64()
+    public long readUInt64()
     {
-        throw new UnsupportedOperationException(
-                "Java implementation of the eRPC does not support 'uint64'"
+        throw new NotImplementedException(
+                "dotnet implementation of the eRPC does not support 'uint64'"
         );
     }
 
-    public override float readFloat()
+    public float readFloat()
     {
-        return this.buffer.getFloat();
+        return this.buffer.ReadFloat();
     }
 
-    public override double readDouble()
+    public double readDouble()
     {
-        return this.buffer.getDouble();
+        return this.buffer.ReadDouble();
     }
 
-    public override String readString()
+    public String readString()
     {
-        return new String(this.readBinary());
+        return System.Text.Encoding.Default.GetString(this.readBinary());
     }
 
-    public override byte[] readBinary()
+    public byte[] readBinary()
     {
         long length = readUInt32();
         byte[] data = new byte[(int)length];
-        this.buffer.get(data, 0, (int)length);
+        this.buffer.ReadBytes(data, 0, (int)length);
 
         return data;
     }
 
-    public override long startReadList()
+    public long startReadList()
     {
         return this.readUInt32();
     }
 
-    public override int startReadUnion()
+    public int startReadUnion()
     {
         return this.readInt8();
     }
 
-    public override bool readNullFlag()
+    public bool readNullFlag()
     {
         return this.readUInt8() != 0;
     }
 
-    public override ByteBuffer getBuffer()
+    public ByteBuffer getBuffer()
     {
         return buffer;
     }

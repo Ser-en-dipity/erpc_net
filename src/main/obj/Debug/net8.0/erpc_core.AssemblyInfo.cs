@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("erpc_core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c2c6b76cf29ac124aa6a4f4cff6fae89f988983")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+10307de54f063cac553064a5ca816dd2b95d4dd1")]
 [assembly: System.Reflection.AssemblyProductAttribute("erpc_core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("erpc_core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

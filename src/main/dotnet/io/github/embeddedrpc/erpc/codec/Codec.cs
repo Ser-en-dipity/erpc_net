@@ -31,7 +31,7 @@ public interface Codec
      *
      * @return buffer
      */
-    MemoryStream getBuffer();
+    ByteBuffer getBuffer();
 
     /**
      * Set buffer data.

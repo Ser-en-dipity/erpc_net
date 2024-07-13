@@ -56,7 +56,7 @@ public sealed class SimpleServer : Server
                 Console.WriteLine("Transport error: " + e);
                 stop();
             }
-            catch (RequestError e)
+            catch (TransRequestError e)
             {
                 Console.WriteLine("Error while processing request: " + e);
                 stop();

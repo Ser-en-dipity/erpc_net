@@ -179,7 +179,7 @@ public sealed class Utils
         for (int i = 0; i < array.Length; i++)
         {
             int index = i * 2;
-            byte j = Convert.ToByte(str.Substring(index, index + 2), HEX_BASE);
+            byte j = Convert.ToByte(str.Substring(index, 2), HEX_BASE);
             array[i] = j;
         }
 

@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\erpc\\erpc_net\\src\\main\\erpc_core.csproj": {
-      "version": "1.0.0",
+      "version": "1.0.2",
       "restore": {
         "projectUniqueName": "D:\\erpc\\erpc_net\\src\\main\\erpc_core.csproj",
         "projectName": "erpc_core",

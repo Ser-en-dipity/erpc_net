@@ -89,7 +89,7 @@ public abstract class FramedTransport : Transport
 
     }
 
-    public void close()
+    public virtual void close()
     {
 
     }

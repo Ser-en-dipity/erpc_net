@@ -17,6 +17,6 @@ namespace io.github.embeddedrpc.erpc.auxiliary;
  * @param codec    Codec used to store send and received message
  * @param isOneWay Request direction
  */
-public record RequestContext(int sequence, MemoryStream message, Codec codec, bool isOneWay)
+public record RequestContext(int sequence, ByteBuffer message, Codec codec, bool isOneWay)
 {
 }

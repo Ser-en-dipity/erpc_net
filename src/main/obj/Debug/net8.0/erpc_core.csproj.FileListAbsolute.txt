@@ -4,3 +4,10 @@ D:\erpc\erpc_net\src\main\obj\Debug\net8.0\erpc_core.AssemblyInfo.cs
 D:\erpc\erpc_net\src\main\obj\Debug\net8.0\erpc_core.csproj.CoreCompileInputs.cache
 D:\erpc\erpc_net\src\main\obj\Debug\net8.0\erpc_core.sourcelink.json
 D:\erpc\erpc_net\src\main\obj\Debug\net8.0\erpc_core.csproj.AssemblyReference.cache
+D:\erpc\erpc_net\src\main\bin\Debug\net8.0\erpc_core.deps.json
+D:\erpc\erpc_net\src\main\bin\Debug\net8.0\erpc_core.dll
+D:\erpc\erpc_net\src\main\bin\Debug\net8.0\erpc_core.pdb
+D:\erpc\erpc_net\src\main\obj\Debug\net8.0\erpc_core.dll
+D:\erpc\erpc_net\src\main\obj\Debug\net8.0\refint\erpc_core.dll
+D:\erpc\erpc_net\src\main\obj\Debug\net8.0\erpc_core.pdb
+D:\erpc\erpc_net\src\main\obj\Debug\net8.0\ref\erpc_core.dll
