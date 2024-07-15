@@ -236,7 +236,7 @@
     "C:\\Users\\i'CNC\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.0.2",
+    "version": "1.0.3",
     "restore": {
       "projectUniqueName": "D:\\erpc\\erpc_net\\src\\main\\erpc_core.csproj",
       "projectName": "erpc_core",

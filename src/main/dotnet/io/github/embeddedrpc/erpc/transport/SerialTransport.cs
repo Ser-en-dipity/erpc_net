@@ -61,7 +61,19 @@ public sealed class SerialTransport : FramedTransport
         Debug.Assert(_serialPort.IsOpen);
 
         byte[] received = new byte[count];
-        int bytesRead = _serialPort.Read(received, 0, count);
+        int bytesRead = 0;
+        while (bytesRead < count)
+        {
+            try
+            {
+                bytesRead += _serialPort.Read(received, bytesRead, count - bytesRead);
+            }
+
+            catch (TimeoutException)
+            {
+                Console.WriteLine("TimeoutException");
+            }
+        }
 
         if (bytesRead != count)
         {

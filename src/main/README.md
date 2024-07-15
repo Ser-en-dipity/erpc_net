@@ -355,6 +355,10 @@ To install the Python infrastructure for eRPC see instructions in the [erpc pyth
 
 Repository on Github contains two main branches: __main__ and __develop__. Code is developed on __develop__ branch. Release version is created via merging __develop__ branch into __main__ branch.
 
+## Update
+
+1.0.2 erpc .Net implementation
+1.0.3 serial port read func correct
 ---
 Copyright 2014-2016 Freescale Semiconductor, Inc.
 
