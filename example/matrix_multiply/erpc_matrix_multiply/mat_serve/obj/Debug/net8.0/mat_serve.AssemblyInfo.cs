@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("mat_serve")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c2c6b76cf29ac124aa6a4f4cff6fae89f988983")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b56fec8b5f2ce7137aea1c5376a23e6d8d82f663")]
 [assembly: System.Reflection.AssemblyProductAttribute("mat_serve")]
 [assembly: System.Reflection.AssemblyTitleAttribute("mat_serve")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -264,11 +264,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\erpc\\erpc_net\\example\\erpc_matrix_multiply\\mat_client\\mat_client.csproj",
+      "projectUniqueName": "D:\\erpc\\erpc_net\\example\\matrix_multiply\\erpc_matrix_multiply\\mat_client\\mat_client.csproj",
       "projectName": "mat_client",
-      "projectPath": "D:\\erpc\\erpc_net\\example\\erpc_matrix_multiply\\mat_client\\mat_client.csproj",
+      "projectPath": "D:\\erpc\\erpc_net\\example\\matrix_multiply\\erpc_matrix_multiply\\mat_client\\mat_client.csproj",
       "packagesPath": "C:\\Users\\i'CNC\\.nuget\\packages\\",
-      "outputPath": "D:\\erpc\\erpc_net\\example\\erpc_matrix_multiply\\mat_client\\obj\\",
+      "outputPath": "D:\\erpc\\erpc_net\\example\\matrix_multiply\\erpc_matrix_multiply\\mat_client\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\i'CNC\\AppData\\Roaming\\NuGet\\NuGet.Config"

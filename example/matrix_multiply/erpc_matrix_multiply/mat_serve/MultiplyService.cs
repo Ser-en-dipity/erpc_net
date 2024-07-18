@@ -36,6 +36,6 @@ public class MatrixMultiplyService : AbstractMatrixMultiplyServiceService
 
         Console.WriteLine("\r\nResult matrix");
         Console.WriteLine("=========");
-        // Program.printMatrix(result_matrix.get());
+        Program.printMatrix(result_matrix.get());
     }
 }

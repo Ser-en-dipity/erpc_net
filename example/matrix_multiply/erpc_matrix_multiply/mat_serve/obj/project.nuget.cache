@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "A8BGCwEytTTbIpIGjt65rSYLXJOHiyAdUWMiOKpVI+k2wQ4ktpNsUHY4hphPAU6EwWsVBgLnATfFcE6BD3kxiw==",
+  "dgSpecHash": "Ud5RWkGonhvw14MdllLQN5rPf3FE+FpHdJ+Vqs4LBUyf1u4VYhaUpZOVnZiYYlvVnr0Aw5YifzOf/hsMs6rEEA==",
   "success": true,
-  "projectFilePath": "D:\\erpc\\erpcgen\\VisualStudio_v14\\Debug\\erpc_matrix_multiply\\mat_serve\\mat_serve.csproj",
+  "projectFilePath": "D:\\erpc\\erpc_net\\example\\matrix_multiply\\erpc_matrix_multiply\\mat_serve\\mat_serve.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\i'CNC\\.nuget\\packages\\erpc_core\\1.0.3\\erpc_core.1.0.3.nupkg.sha512",
     "C:\\Users\\i'CNC\\.nuget\\packages\\runtime.linux-arm.runtime.native.system.io.ports\\8.0.0\\runtime.linux-arm.runtime.native.system.io.ports.8.0.0.nupkg.sha512",

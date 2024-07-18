@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\erpc\\erpcgen\\VisualStudio_v14\\Debug\\erpc_matrix_multiply\\mat_serve\\mat_serve.csproj": {}
+    "D:\\erpc\\erpc_net\\example\\matrix_multiply\\erpc_matrix_multiply\\mat_serve\\mat_serve.csproj": {}
   },
   "projects": {
-    "D:\\erpc\\erpcgen\\VisualStudio_v14\\Debug\\erpc_matrix_multiply\\mat_serve\\mat_serve.csproj": {
+    "D:\\erpc\\erpc_net\\example\\matrix_multiply\\erpc_matrix_multiply\\mat_serve\\mat_serve.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\erpc\\erpcgen\\VisualStudio_v14\\Debug\\erpc_matrix_multiply\\mat_serve\\mat_serve.csproj",
+        "projectUniqueName": "D:\\erpc\\erpc_net\\example\\matrix_multiply\\erpc_matrix_multiply\\mat_serve\\mat_serve.csproj",
         "projectName": "mat_serve",
-        "projectPath": "D:\\erpc\\erpcgen\\VisualStudio_v14\\Debug\\erpc_matrix_multiply\\mat_serve\\mat_serve.csproj",
+        "projectPath": "D:\\erpc\\erpc_net\\example\\matrix_multiply\\erpc_matrix_multiply\\mat_serve\\mat_serve.csproj",
         "packagesPath": "C:\\Users\\i'CNC\\.nuget\\packages\\",
-        "outputPath": "D:\\erpc\\erpcgen\\VisualStudio_v14\\Debug\\erpc_matrix_multiply\\mat_serve\\obj\\",
+        "outputPath": "D:\\erpc\\erpc_net\\example\\matrix_multiply\\erpc_matrix_multiply\\mat_serve\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\i'CNC\\AppData\\Roaming\\NuGet\\NuGet.Config"

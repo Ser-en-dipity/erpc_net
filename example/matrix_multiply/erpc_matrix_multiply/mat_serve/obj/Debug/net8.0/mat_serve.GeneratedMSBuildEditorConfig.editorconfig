@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = mat_serve
-build_property.ProjectDir = D:\erpc\erpcgen\VisualStudio_v14\Debug\erpc_matrix_multiply\mat_serve\
+build_property.ProjectDir = D:\erpc\erpc_net\example\matrix_multiply\erpc_matrix_multiply\mat_serve\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
