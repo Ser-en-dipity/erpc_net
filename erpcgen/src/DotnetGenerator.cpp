@@ -420,9 +420,31 @@ string DotnetGenerator::getTypenameName(DataType *t, bool isReference, bool obje
     {
         case DataType::data_type_t::kArrayType:
         {
+            // string result = "";
+
+            // DataType *current = dynamic_cast<DataType *>(t);
+            // assert(current);
+            // int cnt = 0;
+            // while (current->isArray())
+            // {
+            //     cnt ++;
+            //     ArrayType *arrayType = dynamic_cast<ArrayType *>(current);
+            //     if (cnt == 1)
+            //     {
+            //         result += format_string("[%d]",arrayType->getElementCount());
+            //     }
+            //     else
+            //     {
+            //         result.pop_back();
+            //         result += "[]";
+            //     }
+            //     current = arrayType->getElementType();
+            // }
             ArrayType *a = dynamic_cast<ArrayType *>(t);
             assert(a);
             returnName = getTypenameName(a->getElementType(), false, false) + "[]";
+            // result = getTypenameName(t->getTrueContainerDataType(), false, false) + result;
+            // returnName = result;
             break;
         }
         case DataType::data_type_t::kBuiltinType:
@@ -480,10 +502,20 @@ string DotnetGenerator::getArrayInitialization(ArrayType *t)
     string result = "";
 
     DataType *current = dynamic_cast<DataType *>(t);
+    int cnt = 0;
     while (current->isArray())
     {
+        cnt ++;
         ArrayType *arrayType = dynamic_cast<ArrayType *>(current);
-        result += format_string("[%d]", arrayType->getElementCount());
+        if (cnt == 1)
+        {
+            result += format_string("[%d]", arrayType->getElementCount());
+        }
+        else
+        {
+            // result.pop_back();
+            result += "[]";
+        }
         current = arrayType->getElementType();
     }
 
@@ -1213,25 +1245,25 @@ string DotnetGenerator::getBuiltinObjectTypename(const BuiltinType *t)
         case BuiltinType::builtin_type_t::kInt8Type:
             return "Byte";
         case BuiltinType::builtin_type_t::kInt16Type:
-            return "Short";
+            return "short";
         case BuiltinType::builtin_type_t::kInt32Type:
-            return "Integer";
+            return "int";
         case BuiltinType::builtin_type_t::kInt64Type:
-            return "Long";
+            return "long";
         case BuiltinType::builtin_type_t::kUInt8Type:
-            return "Short";
+            return "short";
         case BuiltinType::builtin_type_t::kUInt16Type:
-            return "Integer";
+            return "int";
         case BuiltinType::builtin_type_t::kUInt32Type:
-            return "Long";
+            return "long";
         case BuiltinType::builtin_type_t::kUInt64Type:
             throw internal_error("Dotnet implementation does not support uint64");
         case BuiltinType::builtin_type_t::kFloatType:
-            return "Float";
+            return "float";
         case BuiltinType::builtin_type_t::kDoubleType:
-            return "Double";
+            return "double";
         case BuiltinType::builtin_type_t::kStringType:
-            return "String";
+            return "string";
         case BuiltinType::builtin_type_t::kBinaryType:
             return "byte[]";
         default:

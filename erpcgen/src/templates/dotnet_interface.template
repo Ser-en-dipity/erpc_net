@@ -23,11 +23,6 @@ namespace {$groupPackage}.interfaces;
 {% else %}
 {% endif %}
 public interface I{$interface.name} {
-    int SERVICE_ID = {$interface.id};
-{% for fn in interface.functions %}
-    int {$upper(fn.name)}_ID = {$fn.id};
-{% endfor -- fn %}
-
 {% for fn in interface.functions %}
 {% if fn.mlComment %}
 {$fn.mlComment}

@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "c5WQXYm/e6cMC87RYJqlIkXF//BM6ZU93vtT0b3RsQHeHiNc1EBv6etlzFK7VdP4Zxcfr8KSuv8mSoQM2iVG7g==",
+  "success": true,
+  "projectFilePath": "D:\\erpc\\erpc_net\\example\\erpc_matrix_multiply\\mat_client\\mat_client.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\i'CNC\\.nuget\\packages\\erpc_core\\1.0.3\\erpc_core.1.0.3.nupkg.sha512",
+    "C:\\Users\\i'CNC\\.nuget\\packages\\runtime.linux-arm.runtime.native.system.io.ports\\8.0.0\\runtime.linux-arm.runtime.native.system.io.ports.8.0.0.nupkg.sha512",
+    "C:\\Users\\i'CNC\\.nuget\\packages\\runtime.linux-arm64.runtime.native.system.io.ports\\8.0.0\\runtime.linux-arm64.runtime.native.system.io.ports.8.0.0.nupkg.sha512",
+    "C:\\Users\\i'CNC\\.nuget\\packages\\runtime.linux-x64.runtime.native.system.io.ports\\8.0.0\\runtime.linux-x64.runtime.native.system.io.ports.8.0.0.nupkg.sha512",
+    "C:\\Users\\i'CNC\\.nuget\\packages\\runtime.native.system.io.ports\\8.0.0\\runtime.native.system.io.ports.8.0.0.nupkg.sha512",
+    "C:\\Users\\i'CNC\\.nuget\\packages\\runtime.osx-arm64.runtime.native.system.io.ports\\8.0.0\\runtime.osx-arm64.runtime.native.system.io.ports.8.0.0.nupkg.sha512",
+    "C:\\Users\\i'CNC\\.nuget\\packages\\runtime.osx-x64.runtime.native.system.io.ports\\8.0.0\\runtime.osx-x64.runtime.native.system.io.ports.8.0.0.nupkg.sha512",
+    "C:\\Users\\i'CNC\\.nuget\\packages\\system.io.ports\\8.0.0\\system.io.ports.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

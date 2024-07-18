@@ -46,7 +46,7 @@ var {$type.discriminatorName} = {$info.name}.get(_{$name}.getSecond());#}
 {% if info.isReference%}
 {$info.name}.set({$info.type.name}.read(codec));
 {% else %}
-{% if info.needTypeDeclaration %}{$info.type.typeName} {% endif %}{$info.name} = {$info.type.name}.read(codec);
+{% if info.needTypeDeclaration %}{$info.type.typeName} {% endif %}{$info.name} = ({$info.type.name})codec.readInt32();
 {% endif -- isReference%}
 {% enddef ---------------------------------- EnumType %}
 
@@ -59,13 +59,13 @@ var {$type.discriminatorName} = {$info.name}.get(_{$name}.getSecond());#}
 {% def decodeListType(info) ------------------- ListType %}
 long {$info.sizeVariable} = {% if info.hasLengthVariable %}{$info.size}{% else %}codec.startReadList(){% endif %};
 {% if info.isReference%}
-{$info.name}.set(new ArrayList<>());
+{$info.name}.set(new ());
 {% else %}
-{% if info.needTypeDeclaration %}{$info.type.typeName} {% endif %}{$info.name} = new ArrayList<>();
+{% if info.needTypeDeclaration %}{$info.type.name} {% endif %}{$info.name} = new {$info.type.typeName}();
 {% endif -- isReference%}
 for (long {$info.counter} = 0L; {$info.counter} < {$info.sizeVariable}; ++{$info.counter}) {
 {$addIndent("    ", info.protoNext.decode(info.protoNext))}
-    {$info.name}{% if info.isReference%}.get(){% endif %}.add({$info.protoNext.name});
+    {$info.name}{% if info.isReference%}.get(){% endif %}.Add({$info.protoNext.name});
 }
 {% enddef ------------------------------------- ListType %}
 
@@ -100,7 +100,7 @@ for (int {$info.counter} = 0; {$info.counter} < {$info.size}; ++{$info.counter})
 
 {############################### encodeEnumType ###############################}
 {% def encodeEnumType(info) ---------------- EnumType %}
-{%if info.isStructMember %}this.{% endif %}{$info.name}{% if info.isReference%}.get(){% endif %}.write(codec);
+codec.writeInt32((int){%if info.isStructMember %}this.{% endif %}{$info.name}{% if info.isReference%}.get(){% endif %});
 {% enddef ---------------------------------- EnumType %}
 
 {############################### encodeBinaryType ###############################}
@@ -110,8 +110,8 @@ codec.writeBinary({%if info.isStructMember %}this.{% endif %}{$info.name}{% if i
 
 {############################### encodeListType ###############################}
 {% def encodeListType(info) ------------------- ListType %}
-codec.startWriteList({$info.name}{% if info.isReference%}.get(){% endif %}.size());
-for ({$info.protoNext.type.typeName} {$info.protoNext.name} : {%if info.isStructMember %}this.{% endif %}{$info.name}{% if info.isReference%}.get(){% endif %}) {
+codec.startWriteList({$info.name}{% if info.isReference%}.get(){% endif %}.Count);
+foreach ({$info.protoNext.type.typeName} {$info.protoNext.name} in {%if info.isStructMember %}this.{% endif %}{$info.name}{% if info.isReference%}.get(){% endif %}) {
 {$   addIndent("    ", info.protoNext.encode(info.protoNext))}
 }
 {% enddef ------------------------------------- ListType %}

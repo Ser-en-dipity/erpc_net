@@ -21,13 +21,17 @@ namespace {$groupPackage}.client;
 
 public class {$iface.name}Client : I{$iface.name} {
     private readonly ClientManager clientManager;
+    private static readonly int SERVICE_ID = {$interface.id};
+{% for fn in interface.functions %}
+    private static readonly int {$upper(fn.name)}_ID = {$fn.id};
+{% endfor -- fn %}
 
     public {$iface.name}Client(ClientManager clientManager) {
         this.clientManager = clientManager;
     }
 {% for fn in iface.functions %}
 {$loop.addNewLineIfNotLast}
-    public override {$fn.prototype} {
+    public {$fn.prototype} {
         // Create request
         RequestContext request = clientManager.createRequest({% if fn.isOneway %}true{% else %}false{% endif %});
         Codec codec = request.codec;
@@ -35,8 +39,8 @@ public class {$iface.name}Client : I{$iface.name} {
         // Write message info
         codec.startWriteMessage(new MessageInfo(
                 MessageType.{% if fn.isReturnValue %}kInvocationMessage{% else %}kOnewayMessage{% endif %},
-                this.SERVICE_ID,
-                this.{$upper(fn.name)}_ID,
+                SERVICE_ID,
+                {$upper(fn.name)}_ID,
                 request.sequence));
 
         // Write message data
