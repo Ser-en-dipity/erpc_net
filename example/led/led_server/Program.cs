@@ -9,8 +9,8 @@ public class Program
 {
     public static void Main(String[] args)
     {
-        // Transport transport = new TCPServerTransport("127.0.0.1", 40);
-        Transport transport = new SerialTransport("COM4", 9600);
+        Transport transport = new TCPServerTransport("127.0.0.1", 40);
+        // Transport transport = new SerialTransport("COM4", 9600);
 
         Server server = new SimpleServer(transport, new BasicCodecFactory());
 

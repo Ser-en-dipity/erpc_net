@@ -7,6 +7,7 @@
 using System.Net.Sockets;
 using io.github.embeddedrpc.erpc.codec;
 using io.github.embeddedrpc.erpc.transport;
+using System.Text;
 
 namespace io.github.embeddedrpc.erpc.server;
 
@@ -30,6 +31,11 @@ public sealed class SimpleServer : Server
     private void receiveRequest()
     {
         byte[] data = getTransport().receive();
+        if (data == Encoding.ASCII.GetBytes("HEARTBEAT SEND"))
+        {
+            getTransport().HeartbeatAckSend();
+            return;
+        }
         if (data.Length == 0 && getTransport() is TCPServerTransport)
         {
             var transport = getTransport() as TCPServerTransport;

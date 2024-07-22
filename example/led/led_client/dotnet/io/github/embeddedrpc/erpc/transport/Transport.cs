@@ -29,4 +29,8 @@ public interface Transport
      * Close transport layer.
      */
     void close();
+
+    public void HeartbeatSend();
+    public void HeartbeatAckSend();
+    public byte[] HeartbeatAckReceive();
 }
