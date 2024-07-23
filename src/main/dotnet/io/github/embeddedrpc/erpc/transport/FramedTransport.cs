@@ -10,6 +10,7 @@ using io.github.embeddedrpc.erpc.codec;
 
 using System.Threading;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace io.github.embeddedrpc.erpc.transport;
 
@@ -34,6 +35,11 @@ public abstract class FramedTransport : Transport
             int crcHeader = codec.readUInt16();
             int messageLength = codec.readUInt16();
             int crcBody = codec.readUInt16();
+
+            if (crcHeader == 0 && messageLength == 0 && crcBody == 0)
+            {
+                return [];
+            }
 
             int computedCrc = crc16.computeCRC16(Utils.uInt16ToBytes(messageLength))
                     + crc16.computeCRC16(Utils.uInt16ToBytes(crcBody));
@@ -97,4 +103,9 @@ public abstract class FramedTransport : Transport
     public abstract void baseSend(byte[] data);
 
     public abstract byte[] baseReceive(int count);
+
+    public void HeartbeatAckSend()
+    {
+        send(Encoding.UTF8.GetBytes("HEARTBEAT ACK"));
+    }
 }

@@ -29,4 +29,6 @@ public interface Transport
      * Close transport layer.
      */
     void close();
+
+    void HeartbeatAckSend();
 }

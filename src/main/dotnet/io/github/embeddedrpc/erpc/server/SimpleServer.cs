@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+using System.Net.Sockets;
+using System.Text;
 using io.github.embeddedrpc.erpc.codec;
 using io.github.embeddedrpc.erpc.transport;
 
@@ -29,6 +31,13 @@ public sealed class SimpleServer : Server
     private void receiveRequest()
     {
         byte[] data = getTransport().receive();
+        if (data.Length == 0 && getTransport() is TCPServerTransport)
+        {
+            var transport = getTransport() as TCPServerTransport;
+            transport.close();
+            return;
+        }
+
         Codec codec = getCodecFactory().create(data);
 
         processRequest(codec);
@@ -49,6 +58,14 @@ public sealed class SimpleServer : Server
         {
             try
             {
+                if (getTransport() is TCPServerTransport)
+                {
+                    var transport = getTransport() as TCPServerTransport;
+                    if (transport.getSocket().Connected == false)
+                    {
+                        transport.Open();
+                    }
+                }
                 receiveRequest();
             }
             catch (TransportError e)
@@ -60,6 +77,13 @@ public sealed class SimpleServer : Server
             {
                 Console.WriteLine("Error while processing request: " + e);
                 stop();
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine("Socket error: " + e);
+                // var transport = getTransport() as TCPServerTransport;
+                // transport.close();
+                // stop();
             }
         }
     }

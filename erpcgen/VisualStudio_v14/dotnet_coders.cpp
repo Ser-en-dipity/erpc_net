@@ -52,7 +52,7 @@ const char * const kDotnetCoders =
 "{############################### decodeEnumType ###############################}\n"
 "{% def decodeEnumType(info) ---------------- EnumType %}\n"
 "{% if info.isReference%}\n"
-"{$info.name}.set({$info.type.name}.read(codec));\n"
+"{$info.name}.set(codec.readInt32({$info.type.name}));\n"
 "{% else %}\n"
 "{% if info.needTypeDeclaration %}{$info.type.typeName} {% endif %}{$info.name} = ({$info.type.name})codec.readInt32();\n"
 "{% endif -- isReference%}\n"

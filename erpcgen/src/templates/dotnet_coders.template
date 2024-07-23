@@ -44,7 +44,7 @@ var {$type.discriminatorName} = {$info.name}.get(_{$name}.getSecond());#}
 {############################### decodeEnumType ###############################}
 {% def decodeEnumType(info) ---------------- EnumType %}
 {% if info.isReference%}
-{$info.name}.set({$info.type.name}.read(codec));
+{$info.name}.set(({$info.type.name})codec.readInt32());
 {% else %}
 {% if info.needTypeDeclaration %}{$info.type.typeName} {% endif %}{$info.name} = ({$info.type.name})codec.readInt32();
 {% endif -- isReference%}

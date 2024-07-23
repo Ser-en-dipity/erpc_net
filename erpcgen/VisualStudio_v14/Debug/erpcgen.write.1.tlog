@@ -3,8 +3,3 @@ D:\erpc\erpc_net\erpcgen\src\erpcgen_parser.tab.cpp
 D:\erpc\erpc_net\erpcgen\src\erpcgen_parser.tab.h
 ^..\src\erpcgen_lexer.l
 D:\erpc\erpc_net\erpcgen\src\erpcgen_lexer.flex.cpp
-^..\src\erpcgen_parser.y
-D:\erpc\erpc_net\erpcgen\src\erpcgen_parser.tab.cpp
-D:\erpc\erpc_net\erpcgen\src\erpcgen_parser.tab.h
-^..\src\erpcgen_lexer.l
-D:\erpc\erpc_net\erpcgen\src\erpcgen_lexer.flex.cpp

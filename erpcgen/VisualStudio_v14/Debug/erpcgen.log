@@ -1,16 +1,31 @@
 ﻿  Process "erpcgen_parser.y" bison file
   Process "erpcgen_lexer.l" flex file
+  stdafx.cpp
   erpc_crc16.cpp
   format_string.cpp
+  HexValues.cpp
+  JavaGenerator.cpp
+  DotnetGenerator.cpp
+  Logging.cpp
+  options.cpp
+  SearchPath.cpp
+  cpptempl.cpp
   AstNode.cpp
   AstWalker.cpp
+  CGenerator.cpp
   erpcgen.cpp
   ErpcLexer.cpp
   Generator.cpp
   InterfaceDefinition.cpp
+  ParseErrors.cpp
+  PythonGenerator.cpp
   SymbolScanner.cpp
   Token.cpp
+  正在生成代码...
+  正在编译...
   Type.cpp
+  UniqueIdChecker.cpp
+  Utils.cpp
   cpp_coders.cpp
   c_common_header.cpp
   c_crc.cpp
@@ -20,8 +35,6 @@
   cpp_client_source.cpp
   cpp_server_header.cpp
   cpp_server_source.cpp
-  正在生成代码...
-  正在编译...
   c_client_header.cpp
   c_client_source.cpp
   c_server_header.cpp
@@ -30,6 +43,8 @@
   erpcgen_parser.tab.cpp
   java_client.cpp
   java_coders.cpp
+  正在生成代码...
+  正在编译...
   java_const.cpp
   java_enum.cpp
   java_interface.cpp
@@ -42,8 +57,6 @@
   dotnet_interface.cpp
   dotnet_server.cpp
   dotnet_struct.cpp
-  正在生成代码...
-  正在编译...
   py_client.cpp
   py_coders.cpp
   py_common.cpp
