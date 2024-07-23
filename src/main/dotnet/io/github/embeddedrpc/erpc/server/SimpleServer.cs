@@ -5,6 +5,7 @@
  */
 
 using System.Net.Sockets;
+using System.Text;
 using io.github.embeddedrpc.erpc.codec;
 using io.github.embeddedrpc.erpc.transport;
 
@@ -36,6 +37,7 @@ public sealed class SimpleServer : Server
             transport.close();
             return;
         }
+
         Codec codec = getCodecFactory().create(data);
 
         processRequest(codec);
@@ -59,7 +61,7 @@ public sealed class SimpleServer : Server
                 if (getTransport() is TCPServerTransport)
                 {
                     var transport = getTransport() as TCPServerTransport;
-                    if (transport.isConnectionClosed())
+                    if (transport.getSocket().Connected == false)
                     {
                         transport.Open();
                     }

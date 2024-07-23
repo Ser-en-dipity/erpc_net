@@ -49,10 +49,6 @@ public class IOClient : IIO
         codec.writeBool(onOrOff);
 
         // Perform request
-        foreach (var item in request.codec.array())
-        {
-            System.Console.WriteLine(item);
-        }
         clientManager.performRequest(request);
 
         // Read out parameters

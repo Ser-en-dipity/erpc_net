@@ -42,6 +42,11 @@ public sealed class TCPServerTransport : TCPTransport
         Open();
     }
 
+    public override Socket getSocket()
+    {
+        return _handler;
+    }
+
     public override void Open()
     {
         try
@@ -61,7 +66,7 @@ public sealed class TCPServerTransport : TCPTransport
     {
         try
         {
-            _socket.Shutdown(SocketShutdown.Both);
+            _handler.Shutdown(SocketShutdown.Both);
         }
         catch (IOException e)
         {
@@ -69,7 +74,7 @@ public sealed class TCPServerTransport : TCPTransport
         }
         finally
         {
-            _socket.Close();
+            _handler.Close();
         }
 
     }
@@ -101,8 +106,4 @@ public sealed class TCPServerTransport : TCPTransport
 
     }
 
-    public bool isConnectionClosed()
-    {
-        return _handler.Poll(1000, SelectMode.SelectRead) && _handler.Available == 0;
-    }
 }

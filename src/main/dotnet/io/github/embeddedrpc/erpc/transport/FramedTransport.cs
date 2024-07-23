@@ -10,6 +10,7 @@ using io.github.embeddedrpc.erpc.codec;
 
 using System.Threading;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace io.github.embeddedrpc.erpc.transport;
 
@@ -102,4 +103,9 @@ public abstract class FramedTransport : Transport
     public abstract void baseSend(byte[] data);
 
     public abstract byte[] baseReceive(int count);
+
+    public void HeartbeatAckSend()
+    {
+        send(Encoding.UTF8.GetBytes("HEARTBEAT ACK"));
+    }
 }

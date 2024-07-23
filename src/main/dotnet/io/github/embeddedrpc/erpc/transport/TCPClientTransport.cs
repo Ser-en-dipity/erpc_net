@@ -41,6 +41,11 @@ public sealed class TCPClientTransport : TCPTransport
         Open();
     }
 
+    public override Socket getSocket()
+    {
+        return _socket;
+    }
+
     public override void Open()
     {
         try

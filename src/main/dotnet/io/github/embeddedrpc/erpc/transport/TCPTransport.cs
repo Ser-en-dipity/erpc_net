@@ -49,10 +49,7 @@ public abstract class TCPTransport : FramedTransport
         _socket = new Socket(_ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
     }
 
-    public Socket getSocket()
-    {
-        return _socket;
-    }
+    public abstract Socket getSocket();
 
     public abstract void Open();
     /**
