@@ -205,6 +205,11 @@ namespace io.github.embeddedrpc.erpc.codec
             WriteBytes(buffer.ToArray());
         }
 
+        public void WriteSbyte(sbyte value)
+        {
+            WriteByte((byte)value);
+        }
+
         /// <summary>
         /// 写入一个int16数据
         /// </summary>
@@ -352,6 +357,11 @@ namespace io.github.embeddedrpc.erpc.codec
             byte[] bytes = Get(readIndex, len);
             readIndex += len;
             return bytes;
+        }
+
+        public sbyte ReadSbyte()
+        {
+            return (sbyte)ReadByte();
         }
 
         /// <summary>

@@ -59,7 +59,7 @@ public interface Codec
      *
      * @param value int8 value
      */
-    void writeInt8(byte value);
+    void writeInt8(sbyte value);
 
     /**
      * Write int16 to buffer.
@@ -143,7 +143,7 @@ public interface Codec
      *
      * @param length list length
      */
-    void startWriteList(UInt32 length);
+    void startWriteList(int length);
 
     /**
      * Write union discriminator to buffer.
@@ -178,7 +178,7 @@ public interface Codec
      *
      * @return int8 value
      */
-    byte readInt8();
+    sbyte readInt8();
 
     /**
      * Read int16 from buffer.
@@ -206,28 +206,28 @@ public interface Codec
      *
      * @return uint8 value
      */
-    short readUInt8();
+    byte readUInt8();
 
     /**
      * Read uint16 from buffer.
      *
      * @return uint16 value
      */
-    int readUInt16();
+    ushort readUInt16();
 
     /**
      * Read uint32 from buffer.
      *
      * @return uin32 value
      */
-    long readUInt32();
+    uint readUInt32();
 
     /**
      * Java implementation does not support uint64.
      *
      * @return bool value
      */
-    long readUInt64();
+    ulong readUInt64();
 
     /**
      * Read float from buffer.
@@ -262,7 +262,7 @@ public interface Codec
      *
      * @return bool value
      */
-    long startReadList();
+    int startReadList();
 
     /**
      * Read bool from buffer.
