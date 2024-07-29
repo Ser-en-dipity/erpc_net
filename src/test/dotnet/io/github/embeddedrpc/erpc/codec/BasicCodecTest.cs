@@ -32,34 +32,22 @@ public class BasicCodecTest
         Codec codec = new BasicCodec();
 
         // Push data to codec
-        codec.writeInt8((byte)42);
-        codec.writeInt8(unchecked((byte)214));
-        codec.writeUInt8((byte)42);
+        codec.writeInt8(42);
+        codec.writeInt8(123);
+        codec.writeInt8(-12);
+        codec.writeUInt8(42);
+        codec.writeInt8(unchecked((sbyte)130));
 
-        // Assert.Throws<ArgumentException>(() =>
-        // {
-        //     codec.writeUInt8(unchecked((byte)-42));
-        // });
-        // Assert.Throws<ArgumentException>(() =>
-        // {
-        //     codec.writeUInt8((byte)0xff);
-        // });
-        // Assert.Throws<ArgumentException>(() =>
-        // {
-        //     codec.writeUInt8((byte)0);
-        // });
-        // Assert.Throws<ArgumentException>(() =>
-        // {
-        //     codec.readUInt8();
-        // });
 
         // Reset buffer position
         codec.getBuffer().Position(0);
 
         // Read data from codec
         Assert.Equal(42, codec.readInt8());
-        Assert.Equal(214, codec.readInt8());
+        Assert.Equal(123, codec.readInt8());
+        Assert.Equal(-12, codec.readInt8());
         Assert.Equal(42, codec.readUInt8());
+        Assert.Equal(-126, codec.readInt8());
     }
 
     // imitate int8test rewrite int16test
@@ -74,22 +62,10 @@ public class BasicCodecTest
         codec.writeInt16((short)-42);
         codec.writeUInt16((ushort)42);
 
-        Assert.Throws<ArgumentException>(() =>
-        {
-            codec.writeUInt16(unchecked((ushort)-42));
-        });
-        Assert.Throws<ArgumentException>(() =>
-        {
-            codec.writeUInt16((ushort)0xffff);
-        });
-        Assert.Throws<ArgumentException>(() =>
-        {
-            codec.writeUInt16((ushort)0);
-        });
-        Assert.Throws<ArgumentException>(() =>
-        {
-            codec.readUInt16();
-        });
+        codec.writeUInt16(unchecked((ushort)-42));
+        codec.writeUInt16((ushort)0xffff);
+        codec.writeUInt16((ushort)0);
+        codec.readUInt16();
 
         // Reset buffer position
         codec.getBuffer().Position(0);
@@ -98,119 +74,115 @@ public class BasicCodecTest
         Assert.Equal(42, codec.readInt16());
         Assert.Equal(-42, codec.readInt16());
         Assert.Equal(42, codec.readUInt16());
+        Assert.Equal(65494, codec.readUInt16());
+        Assert.Equal(0xffff, codec.readUInt16());
+        Assert.Equal(0, codec.readUInt16());
     }
 
 
-    //     [Fact]
-    //     void int32Test()
-    //     {
-    //         Codec codec = new BasicCodec();
+    [Fact]
+    void int32Test()
+    {
+        Codec codec = new BasicCodec();
 
-    //         // Push data to codec
-    //         codec.writeInt32(42);
-    //         codec.writeInt32(-42);
-    //         codec.writeUInt32(42);
+        // Push data to codec
+        codec.writeInt32(42);
+        codec.writeInt32(-42);
+        codec.writeUInt32(42);
+        codec.writeInt32(12345);
 
-    //         assertThrows(IllegalArgumentException.class, ()-> {
-    //     codec.writeUInt32(-42);
-    // });
-    // assertThrows(IllegalArgumentException.class, ()-> {
-    //     codec.writeUInt32(0xffffffff1L);
-    // });
-    // assertDoesNotThrow(()-> {
-    //     codec.writeUInt32(0);
-    // });
-    // assertDoesNotThrow(()-> {
-    //     codec.readUInt32();
-    // });
+        // Reset buffer position
+        codec.getBuffer().Position(0);
 
-    // // Reset buffer position
-    // codec.getBuffer().position(0);
+        // Read data from codec
+        Assert.Equal(42, codec.readInt32());
+        Assert.Equal(-42, codec.readInt32());
+        Assert.Equal<uint>(42, codec.readUInt32());
+        Assert.Equal(12345, codec.readInt32());
+    }
 
-    // // Read data from codec
-    // Assert.Equal(42, codec.readInt32());
-    // Assert.Equal(-42, codec.readInt32());
-    // Assert.Equal(42, codec.readUInt32());
-    //     }
+    [Fact]
+    void int64Test()
+    {
+        Codec codec = new BasicCodec();
 
-    //     [Fact]
-    // void int64Test()
-    // {
-    //     Codec codec = new BasicCodec();
+        // Push data to codec
+        codec.writeInt64(42);
+        codec.writeInt64(-42);
+        codec.writeInt64(7129843);
+        codec.writeUInt64(182309);
 
-    //     // Push data to codec
-    //     codec.writeInt64(42);
-    //     codec.writeInt64(-42);
+        // Reset buffer position
+        codec.getBuffer().Position(0);
 
-    //     // Reset buffer position
-    //     codec.getBuffer().position(0);
+        // Read data from codec
+        Assert.Equal(42, codec.readInt64());
+        Assert.Equal(-42, codec.readInt64());
+        Assert.Equal(7129843, codec.readInt64());
+        Assert.Equal<UInt64>(182309, codec.readUInt64());
+    }
 
-    //     // Read data from codec
-    //     Assert.Equal(42, codec.readInt64());
-    //     Assert.Equal(-42, codec.readInt64());
-    // }
+    [Fact]
+    void floatTest()
+    {
+        Codec codec = new BasicCodec();
 
-    // [Fact]
-    // void floatTest()
-    // {
-    //     Codec codec = new BasicCodec();
+        // Push data to codec
+        codec.writeFloat(42);
+        codec.writeFloat(-42);
+        codec.writeFloat(0.125F);
+        codec.writeFloat(-0.125F);
 
-    //     // Push data to codec
-    //     codec.writeFloat(42);
-    //     codec.writeFloat(-42);
-    //     codec.writeFloat(0.125F);
-    //     codec.writeFloat(-0.125F);
+        // Reset buffer position
+        codec.getBuffer().Position(0);
 
-    //     // Reset buffer position
-    //     codec.getBuffer().position(0);
+        // Read data from codec
+        Assert.Equal(42, codec.readFloat());
+        Assert.Equal(-42, codec.readFloat());
+        Assert.Equal(0.125F, codec.readFloat());
+        Assert.Equal(-0.125F, codec.readFloat());
+    }
 
-    //     // Read data from codec
-    //     Assert.Equal(42, codec.readFloat());
-    //     Assert.Equal(-42, codec.readFloat());
-    //     Assert.Equal(0.125F, codec.readFloat());
-    //     Assert.Equal(-0.125F, codec.readFloat());
-    // }
+    [Fact]
+    void doubleTest()
+    {
+        Codec codec = new BasicCodec();
 
-    // [Fact]
-    // void doubleTest()
-    // {
-    //     Codec codec = new BasicCodec();
+        // Push data to codec
+        codec.writeDouble(42);
+        codec.writeDouble(-42);
+        codec.writeDouble(0.125F);
+        codec.writeDouble(-0.00000125F);
 
-    //     // Push data to codec
-    //     codec.writeDouble(42);
-    //     codec.writeDouble(-42);
-    //     codec.writeDouble(0.125F);
-    //     codec.writeDouble(-0.00000125F);
+        // Reset buffer position
+        codec.getBuffer().Position(0);
 
-    //     // Reset buffer position
-    //     codec.getBuffer().position(0);
+        // Read data from codec
+        Assert.Equal(42, codec.readDouble());
+        Assert.Equal(-42, codec.readDouble());
+        Assert.Equal(0.125F, codec.readDouble());
+        Assert.Equal(-0.00000125F, codec.readDouble());
+    }
 
-    //     // Read data from codec
-    //     Assert.Equal(42, codec.readDouble());
-    //     Assert.Equal(-42, codec.readDouble());
-    //     Assert.Equal(0.125F, codec.readDouble());
-    //     Assert.Equal(-0.00000125F, codec.readDouble());
-    // }
+    [Fact]
+    void stringTest()
+    {
+        Codec codec = new BasicCodec();
 
-    // [Fact]
-    // void stringTest()
-    // {
-    //     Codec codec = new BasicCodec();
+        // Push data to codec
+        codec.writeString("HelloWord");
+        codec.writeString("+ěščřžýáíé=");
+        codec.writeString("Ḽơᶉëᶆ ȋṕšᶙṁ ḍỡḽǭᵳ ʂǐť ӓṁệẗ, ĉṓɲṩḙċťᶒțûɾ ấɖḯƥĭṩčįɳġ ḝłįʈ");
 
-    //     // Push data to codec
-    //     codec.writeString("HelloWord");
-    //     codec.writeString("+ěščřžýáíé=");
-    //     codec.writeString("Ḽơᶉëᶆ ȋṕšᶙṁ ḍỡḽǭᵳ ʂǐť ӓṁệẗ, ĉṓɲṩḙċťᶒțûɾ ấɖḯƥĭṩčįɳġ ḝłįʈ");
+        // Reset buffer position
+        codec.getBuffer().Position(0);
 
-    //     // Reset buffer position
-    //     codec.getBuffer().position(0);
+        // Read data from codec
+        Assert.Equal("HelloWord", codec.readString());
+        Assert.Equal("+ěščřžýáíé=", codec.readString());
+        Assert.Equal("Ḽơᶉëᶆ ȋṕšᶙṁ ḍỡḽǭᵳ ʂǐť ӓṁệẗ, ĉṓɲṩḙċťᶒțûɾ ấɖḯƥĭṩčįɳġ ḝłįʈ", codec.readString());
 
-    //     // Read data from codec
-    //     Assert.Equal("HelloWord", codec.readString());
-    //     Assert.Equal("+ěščřžýáíé=", codec.readString());
-    //     Assert.Equal("Ḽơᶉëᶆ ȋṕšᶙṁ ḍỡḽǭᵳ ʂǐť ӓṁệẗ, ĉṓɲṩḙċťᶒțûɾ ấɖḯƥĭṩčįɳġ ḝłįʈ", codec.readString());
-
-    // }
+    }
 
     // [Fact]
     // void longStringTest()
@@ -237,29 +209,29 @@ public class BasicCodecTest
 
     // }
 
-    // [Fact]
-    // void longBinaryTest()
-    // {
-    //     // Testing data
-    //     byte[] array = new byte[65536];
-    //     Arrays.fill(array, (byte)42);
+    [Fact]
+    void longBinaryTest()
+    {
+        // Testing data
+        byte[] array = new byte[65536];
+        Array.Fill(array, (byte)42);
 
-    //     Codec codec = new BasicCodec();
+        Codec codec = new BasicCodec();
 
-    //     // Push data to codec
-    //     codec.writeBinary(array);
-    //     codec.writeBinary(array);
-    //     codec.writeBinary(array);
+        // Push data to codec
+        codec.writeBinary(array);
+        codec.writeBinary(array);
+        codec.writeBinary(array);
 
-    //     // Reset buffer position
-    //     codec.getBuffer().position(0);
+        // Reset buffer position
+        codec.getBuffer().Position(0);
 
-    //     // Read data from codec
+        // Read data from codec
 
-    //     assertArrayEquals(array, codec.readBinary());
-    //     assertArrayEquals(array, codec.readBinary());
-    //     assertArrayEquals(array, codec.readBinary());
-    // }
+        Assert.Equal(array, codec.readBinary());
+        Assert.Equal(array, codec.readBinary());
+        Assert.Equal(array, codec.readBinary());
+    }
 
     // [Fact]
     // void byteRepresentationTest()
@@ -270,29 +242,29 @@ public class BasicCodecTest
     //     codec.writeBool(true);
     //     codec.writeBool(false);
 
-    //     codec.writeInt8((byte)-42);
-    //     codec.writeInt8((byte)42);
-    //     codec.writeUInt8((short)42);
+    //     codec.writeInt8(-42);
+    //     codec.writeInt8(42);
+    //     codec.writeUInt8(42);
 
-    //     codec.writeInt16((byte)-42);
-    //     codec.writeInt16((byte)42);
-    //     codec.writeUInt16((short)42);
+    //     codec.writeInt16(-42);
+    //     codec.writeInt16(42);
+    //     codec.writeUInt16(42);
 
-    //     codec.writeInt32((byte)-42);
-    //     codec.writeInt32((byte)42);
-    //     codec.writeUInt32((short)42);
+    //     codec.writeInt32(-42);
+    //     codec.writeInt32(42);
+    //     codec.writeUInt32(42);
 
     //     codec.writeString("Ḽơᶉëᶆ ȋṕšᶙṁ ḍỡḽǭᵳ ʂǐť ӓṁệẗ");
 
     //     // Get bytes length
-    //     int dataLength = codec.getBuffer().position();
+    //     int dataLength = codec.getBuffer().Capacity;
 
     //     // Reset buffer position
-    //     codec.getBuffer().position(0);
+    //     codec.getBuffer().Position(0);
 
     //     // Read data from codec
     //     byte[] array = new byte[dataLength];
-    //     codec.getBuffer().get(array, 0, dataLength);
+    //     codec.getBuffer().ReadBytes(array, 0, dataLength);
 
     //     // Assert equality (bytes string from Python implementation)
     //     Assert.Equal("0100d62a2ad6ff2a002a00d6ffffff2a0000002a0000003d000000e1b8bcc6a1e1b689c3abe1b68620c88be1b995c5a1e"
@@ -317,7 +289,7 @@ public class BasicCodecTest
     //     Assert.Equal(42, codec.readUInt16());
     //     Assert.Equal(-42, codec.readInt32());
     //     Assert.Equal(42, codec.readInt32());
-    //     Assert.Equal(42, codec.readUInt32());
+    //     Assert.Equal<uint>(42, codec.readUInt32());
     //     Assert.Equal("Ḽơᶉëᶆ ȋṕšᶙṁ ḍỡḽǭᵳ ʂǐť ӓṁệẗ", codec.readString());
     // }
 

@@ -59,7 +59,7 @@ public interface Codec
      *
      * @param value int8 value
      */
-    void writeInt8(byte value);
+    void writeInt8(sbyte value);
 
     /**
      * Write int16 to buffer.
@@ -87,28 +87,28 @@ public interface Codec
      *
      * @param value uint8 value
      */
-    void writeUInt8(short value);
+    void writeUInt8(byte value);
 
     /**
      * Write uint16 to buffer.
      *
      * @param value uint16 value
      */
-    void writeUInt16(int value);
+    void writeUInt16(UInt16 value);
 
     /**
      * Write uint32 to buffer.
      *
      * @param value uint32 value
      */
-    void writeUInt32(long value);
+    void writeUInt32(UInt32 value);
 
     /**
      * Java implementation does not support uint64.
      *
      * @param value value
      */
-    void writeUInt64(long value);
+    void writeUInt64(UInt64 value);
 
     /**
      * Write float to buffer.
@@ -150,7 +150,7 @@ public interface Codec
      *
      * @param discriminator discriminator
      */
-    void startWriteUnion(int discriminator);
+    void startWriteUnion(UInt32 discriminator);
 
     /**
      * Write null flag to buffer.
@@ -178,7 +178,7 @@ public interface Codec
      *
      * @return int8 value
      */
-    byte readInt8();
+    sbyte readInt8();
 
     /**
      * Read int16 from buffer.
@@ -206,28 +206,28 @@ public interface Codec
      *
      * @return uint8 value
      */
-    short readUInt8();
+    byte readUInt8();
 
     /**
      * Read uint16 from buffer.
      *
      * @return uint16 value
      */
-    int readUInt16();
+    ushort readUInt16();
 
     /**
      * Read uint32 from buffer.
      *
      * @return uin32 value
      */
-    long readUInt32();
+    uint readUInt32();
 
     /**
      * Java implementation does not support uint64.
      *
      * @return bool value
      */
-    long readUInt64();
+    ulong readUInt64();
 
     /**
      * Read float from buffer.
@@ -262,7 +262,7 @@ public interface Codec
      *
      * @return bool value
      */
-    long startReadList();
+    int startReadList();
 
     /**
      * Read bool from buffer.

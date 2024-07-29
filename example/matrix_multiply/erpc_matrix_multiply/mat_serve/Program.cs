@@ -11,12 +11,13 @@ namespace io.github.Main;
 
 class Program
 {
-    public static readonly String HOST = "localhost";
+    public static readonly String HOST = "127.0.0.1";
     public static readonly int PORT = 40;
     public static readonly int BAUDRATE = 115200;
     static void Main(string[] args)
     {
-        Transport serial = new SerialTransport("COM4", 9600);
+        // Transport serial = new SerialTransport("COM4", 9600);
+        Transport serial = new TCPServerTransport(HOST, PORT);
 
         server(serial);
 

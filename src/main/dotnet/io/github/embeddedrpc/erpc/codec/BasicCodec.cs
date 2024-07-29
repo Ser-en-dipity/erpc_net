@@ -74,13 +74,13 @@ public sealed class BasicCodec : Codec
 
     public void startWriteMessage(MessageInfo msgInfo)
     {
-        long header = (BASIC_CODEC_VERSION << 24)
+        int header = (BASIC_CODEC_VERSION << 24)
                 | ((msgInfo.service & 0xff) << 16)
                 | ((msgInfo.request & 0xff) << 8)
                 | ((int)msgInfo.type & 0xff);
 
-        this.writeUInt32(header);
-        this.writeUInt32(msgInfo.sequence);
+        this.writeInt32(header);
+        this.writeInt32(msgInfo.sequence);
     }
 
     public void writeBool(bool value)
@@ -89,10 +89,10 @@ public sealed class BasicCodec : Codec
         this.buffer.WriteBoolean(value);
     }
 
-    public void writeInt8(byte value)
+    public void writeInt8(sbyte value)
     {
         prepareForWrite(1);
-        this.buffer.WriteByte(value);
+        this.buffer.WriteSbyte(value);
     }
 
     public void writeInt16(short value)
@@ -113,32 +113,28 @@ public sealed class BasicCodec : Codec
         this.buffer.WriteLong(value);
     }
 
-    public void writeUInt8(short value)
+    public void writeUInt8(byte value)
     {
-        Utils.checkUInt8(value);
         prepareForWrite(1);
-        this.buffer.WriteByte(Utils.uInt8toByte(value));
+        this.buffer.WriteByte(value);
     }
 
-    public void writeUInt16(int value)
+    public void writeUInt16(ushort value)
     {
-        Utils.checkUInt16(value);
         prepareForWrite(2);
-        this.buffer.WriteShort(Utils.uInt16toShort(value));
+        this.buffer.WriteUshort(value);
     }
 
-    public void writeUInt32(long value)
+    public void writeUInt32(uint value)
     {
-        Utils.checkUInt32(value);
         prepareForWrite(4);
-        this.buffer.WriteInt(Utils.uInt32toInt(value));
+        this.buffer.WriteUint(value);
     }
 
-    public void writeUInt64(long value)
+    public void writeUInt64(ulong value)
     {
-        throw new NotImplementedException(
-                "dotnet implementation of the eRPC does not support 'uint64'"
-        );
+        prepareForWrite(8);
+        this.buffer.WriteUlong(value);
     }
 
     public void writeFloat(float value)
@@ -155,7 +151,7 @@ public sealed class BasicCodec : Codec
 
     public void writeString(String value)
     {
-        this.writeBinary(Encoding.ASCII.GetBytes(value));
+        this.writeBinary(Encoding.UTF8.GetBytes(value));
     }
 
     public void writeBinary(byte[] value)
@@ -167,23 +163,23 @@ public sealed class BasicCodec : Codec
 
     public void startWriteList(int length)
     {
-        this.writeUInt32(length);
+        this.writeInt32(length);
     }
 
-    public void startWriteUnion(int discriminator)
+    public void startWriteUnion(UInt32 discriminator)
     {
         this.writeUInt32(discriminator);
     }
 
     public void writeNullFlag(int value)
     {
-        this.writeUInt32(value != 0 ? 1 : 0);
+        this.writeInt32(value != 0 ? 1 : 0);
     }
 
     public MessageInfo startReadMessage()
     {
-        int header = (int)this.readUInt32();
-        int sequence = (int)this.readUInt32();
+        int header = this.readInt32();
+        int sequence = this.readInt32();
         int version = header >> 24;
 
         if (version != BASIC_CODEC_VERSION)
@@ -204,9 +200,9 @@ public sealed class BasicCodec : Codec
         return this.buffer.ReadByte() != 0;
     }
 
-    public byte readInt8()
+    public sbyte readInt8()
     {
-        return this.buffer.ReadByte();
+        return this.buffer.ReadSbyte();
     }
 
     public short readInt16()
@@ -224,26 +220,24 @@ public sealed class BasicCodec : Codec
         return this.buffer.ReadLong();
     }
 
-    public short readUInt8()
+    public byte readUInt8()
     {
-        return Utils.byteToUInt8(this.buffer.ReadByte());
+        return this.buffer.ReadByte();
     }
 
-    public int readUInt16()
+    public UInt16 readUInt16()
     {
-        return Utils.shortToUInt16(this.buffer.ReadShort());
+        return this.buffer.ReadUshort();
     }
 
-    public long readUInt32()
+    public UInt32 readUInt32()
     {
-        return Utils.intToUInt32(this.buffer.ReadInt());
+        return this.buffer.ReadUint();
     }
 
-    public long readUInt64()
+    public ulong readUInt64()
     {
-        throw new NotImplementedException(
-                "dotnet implementation of the eRPC does not support 'uint64'"
-        );
+        return this.buffer.ReadUlong();
     }
 
     public float readFloat()
@@ -258,21 +252,21 @@ public sealed class BasicCodec : Codec
 
     public String readString()
     {
-        return System.Text.Encoding.Default.GetString(this.readBinary());
+        return Encoding.UTF8.GetString(this.readBinary());
     }
 
     public byte[] readBinary()
     {
-        long length = readUInt32();
-        byte[] data = new byte[(int)length];
-        this.buffer.ReadBytes(data, 0, (int)length);
+        int length = readInt32();
+        byte[] data = new byte[length];
+        this.buffer.ReadBytes(data, 0, length);
 
         return data;
     }
 
-    public long startReadList()
+    public int startReadList()
     {
-        return this.readUInt32();
+        return this.readInt32();
     }
 
     public int startReadUnion()

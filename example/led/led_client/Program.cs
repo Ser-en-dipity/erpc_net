@@ -16,12 +16,9 @@ public class Program
         // Transport transport = new SerialTransport("COM3", 9600);
 
         ClientManager clientManager = new ClientManager(transport, new BasicCodecFactory());
-        // IOClient client = new IOClient(clientManager);
-        // Reference<string> str;
-        // client.set_led(LEDName.kRed, true);
-        transport.HeartbeatSend();
-        var rec = transport.receive();
-        Console.WriteLine(rec);
+        IOClient client = new IOClient(clientManager);
+        Reference<string> str;
+        client.set_led(LEDName.kRed, true);
 
         transport.close();
 

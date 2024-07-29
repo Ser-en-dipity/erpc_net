@@ -19,7 +19,7 @@ namespace io.github.embeddedrpc.erpc.transport;
  */
 public abstract class FramedTransport : Transport
 {
-    private const int HEADER_LEN = 6;
+    private const int HEADER_LEN = 12;
 
     private readonly Crc16 crc16 = new Crc16();
     private readonly object receiveLock = new();
@@ -32,18 +32,18 @@ public abstract class FramedTransport : Transport
             byte[] headerData = baseReceive(HEADER_LEN);
             Codec codec = new BasicCodec(headerData);
 
-            int crcHeader = codec.readUInt16();
-            int messageLength = codec.readUInt16();
-            int crcBody = codec.readUInt16();
+            int crcHeader = codec.readInt32();
+            int messageLength = codec.readInt32();
+            int crcBody = codec.readInt32();
 
             if (crcHeader == 0 && messageLength == 0 && crcBody == 0)
             {
                 return [];
             }
 
-            int computedCrc = crc16.computeCRC16(Utils.uInt16ToBytes(messageLength))
-                    + crc16.computeCRC16(Utils.uInt16ToBytes(crcBody));
-            computedCrc &= 0xFFFF; // 2 bytes
+            int computedCrc = crc16.computeCRC16(Utils.Int32ToBytes(messageLength))
+                    + crc16.computeCRC16(Utils.Int32ToBytes(crcBody));
+            // computedCrc &= 0xFFFF; // 2 bytes
 
             if (computedCrc != crcHeader)
             {
@@ -73,13 +73,13 @@ public abstract class FramedTransport : Transport
 
             int messageLength = message.Length;
             int crcBody = crc16.computeCRC16(message);
-            int crcHeader = crc16.computeCRC16(Utils.uInt16ToBytes(messageLength))
-                    + crc16.computeCRC16(Utils.uInt16ToBytes(crcBody));
-            crcHeader &= 0xFFFF; // 2 bytes
+            int crcHeader = crc16.computeCRC16(Utils.Int32ToBytes(messageLength))
+                    + crc16.computeCRC16(Utils.Int32ToBytes(crcBody));
+            // crcHeader &= 0xFFFF; // 2 bytes
 
-            codec.writeUInt16(crcHeader);
-            codec.writeUInt16(messageLength);
-            codec.writeUInt16(crcBody);
+            codec.writeInt32(crcHeader);
+            codec.writeInt32(messageLength);
+            codec.writeInt32(crcBody);
 
             byte[] header = codec.array();
 

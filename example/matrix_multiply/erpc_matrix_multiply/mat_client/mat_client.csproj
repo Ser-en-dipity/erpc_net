@@ -8,6 +8,6 @@
   <ItemGroup></ItemGroup>
   <ItemGroup></ItemGroup>
   <ItemGroup>
-    <PackageReference Include="erpc_core" Version="1.0.3" />
+    <PackageReference Include="erpc_core" Version="1.1.4" />
   </ItemGroup>
 </Project>

@@ -1187,7 +1187,7 @@ string DotnetGenerator::getBuiltinCodecTypeName(const BuiltinType *t)
         case BuiltinType::builtin_type_t::kUInt32Type:
             return "UInt32";
         case BuiltinType::builtin_type_t::kUInt64Type:
-            throw internal_error("Dotnet implementation does not support uint64");
+            return "UInt64";
         case BuiltinType::builtin_type_t::kFloatType:
             return "Float";
         case BuiltinType::builtin_type_t::kDoubleType:
@@ -1208,7 +1208,7 @@ string DotnetGenerator::getBuiltinTypename(const BuiltinType *t)
         case BuiltinType::builtin_type_t::kBoolType:
             return "bool";
         case BuiltinType::builtin_type_t::kInt8Type:
-            return "byte";
+            return "sbyte";
         case BuiltinType::builtin_type_t::kInt16Type:
             return "short";
         case BuiltinType::builtin_type_t::kInt32Type:
@@ -1216,13 +1216,13 @@ string DotnetGenerator::getBuiltinTypename(const BuiltinType *t)
         case BuiltinType::builtin_type_t::kInt64Type:
             return "long";
         case BuiltinType::builtin_type_t::kUInt8Type:
-            return "short";
+            return "byte";
         case BuiltinType::builtin_type_t::kUInt16Type:
-            return "int";
+            return "ushort";
         case BuiltinType::builtin_type_t::kUInt32Type:
-            return "long";
+            return "uint";
         case BuiltinType::builtin_type_t::kUInt64Type:
-            throw internal_error("Dotnet implementation does not support uint64");
+            return "ulong";
         case BuiltinType::builtin_type_t::kFloatType:
             return "float";
         case BuiltinType::builtin_type_t::kDoubleType:
@@ -1243,7 +1243,7 @@ string DotnetGenerator::getBuiltinObjectTypename(const BuiltinType *t)
         case BuiltinType::builtin_type_t::kBoolType:
             return "bool";
         case BuiltinType::builtin_type_t::kInt8Type:
-            return "Byte";
+            return "sbyte";
         case BuiltinType::builtin_type_t::kInt16Type:
             return "short";
         case BuiltinType::builtin_type_t::kInt32Type:
@@ -1251,13 +1251,13 @@ string DotnetGenerator::getBuiltinObjectTypename(const BuiltinType *t)
         case BuiltinType::builtin_type_t::kInt64Type:
             return "long";
         case BuiltinType::builtin_type_t::kUInt8Type:
-            return "short";
+            return "byte";
         case BuiltinType::builtin_type_t::kUInt16Type:
-            return "int";
+            return "ushort";
         case BuiltinType::builtin_type_t::kUInt32Type:
-            return "long";
+            return "uint";
         case BuiltinType::builtin_type_t::kUInt64Type:
-            throw internal_error("Dotnet implementation does not support uint64");
+            return "ulong";
         case BuiltinType::builtin_type_t::kFloatType:
             return "float";
         case BuiltinType::builtin_type_t::kDoubleType:
@@ -1381,6 +1381,7 @@ void DotnetGenerator::initDotnetReservedWords()
     reserverdWords.insert("protected");
     reserverdWords.insert("throw");
     reserverdWords.insert("byte");
+    reserverdWords.insert("sbyte");
     reserverdWords.insert("else");
     reserverdWords.insert("import");
     reserverdWords.insert("public");
@@ -1393,7 +1394,9 @@ void DotnetGenerator::initDotnetReservedWords()
     reserverdWords.insert("catch");
     reserverdWords.insert("extends");
     reserverdWords.insert("int");
+    reserverdWords.insert("uint");
     reserverdWords.insert("short");
+    reserverdWords.insert("ushort");
     reserverdWords.insert("try");
     reserverdWords.insert("char");
     reserverdWords.insert("final");
@@ -1403,6 +1406,7 @@ void DotnetGenerator::initDotnetReservedWords()
     reserverdWords.insert("class");
     reserverdWords.insert("finally");
     reserverdWords.insert("long");
+    reserverdWords.insert("ulong");
     reserverdWords.insert("strictfp");
     reserverdWords.insert("volatile");
     reserverdWords.insert("const");
